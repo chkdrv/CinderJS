@@ -53,8 +53,15 @@ window.Dictionary = (function(){
     /* Constructor which creates a copy of the Object 
      * prototype and then injects the custom defined
      * functions into the new object's prototype */
-    function Dictionary(){
+    function Dictionary(base){
         var dictionary = Object.create(Dictionary.prototype);
+        if(base !== undefined){
+            for(prop in base){
+                if(base.hasOwnProperty(prop)){
+                    dictionary[prop] = base[prop];
+                }
+            }
+        }
         return dictionary;
     }
 
@@ -83,6 +90,18 @@ window.Dictionary = (function(){
                 var temp = callback(keys[i], this[keys[i]], i);
                 if(temp !== undefined) this[keys[i]] = temp;
             }
+        },
+
+        /* Returns whether or not the dictionary contains a
+         * specified key */
+        hasKey: function(key){
+            if(this[key] !== undefined) return false
+            else return true;
+        },
+
+        /* Removes an item from the dictionary */
+        delete: function(key){
+            delete this[key];
         }
     };
     
