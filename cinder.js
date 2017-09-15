@@ -45,3 +45,46 @@ window.List = (function(){
 
     return List;
 })();
+
+/* Dictionaries are objects with extended prototypes for
+ * ease of use, particulary when iterating over them */
+window.Dictionary = (function(){
+    
+    /* Constructor which creates a copy of the Object 
+     * prototype and then injects the custom defined
+     * functions into the new object's prototype */
+    function Dictionary(){
+        var dictionary = Object.create(Dictionary.prototype);
+        return dictionary;
+    }
+
+    /* All of the dictionaries prototype functions */
+    Dictionary.prototype = {
+        
+        /* Returns all the keys in the object as an array */
+        keys: function(){
+            var keys = [], prop;
+            for(prop in this){
+                if(!Dictionary.prototype.hasOwnProperty(prop)){
+                    keys.push(prop);
+                }
+            }
+            return keys;
+        },
+
+        /* iterates over all the key: value pairs in the object
+         * and executes a callback on them, passing the key, 
+         * the value and the index to the function. If the 
+         * callback returns a value, update the value of the 
+         * pair */
+        each: function(callback){
+            var keys = this.keys();
+            for(var i=0; i<keys.length; i++){
+                var temp = callback(keys[i], this[keys[i]], i);
+                if(temp !== undefined) this[keys[i]] = temp;
+            }
+        }
+    };
+    
+    return Dictionary;
+})();
