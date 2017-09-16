@@ -49,6 +49,7 @@ window.List = (function(){
 /* Dictionaries are objects with extended prototypes for
  * ease of use, particulary when iterating over them */
 window.Dictionary = (function(){
+    "use strict";
     
     /* Constructor which creates a copy of the Object 
      * prototype and then injects the custom defined
@@ -56,7 +57,7 @@ window.Dictionary = (function(){
     function Dictionary(base){
         var dictionary = Object.create(Dictionary.prototype);
         if(base !== undefined){
-            for(prop in base){
+            for(var prop in base){
                 if(base.hasOwnProperty(prop)){
                     dictionary[prop] = base[prop];
                 }
@@ -70,8 +71,8 @@ window.Dictionary = (function(){
         
         /* Returns all the keys in the object as an array */
         keys: function(){
-            var keys = [], prop;
-            for(prop in this){
+            var keys = [];
+            for(var prop in this){
                 if(!Dictionary.prototype.hasOwnProperty(prop)){
                     keys.push(prop);
                 }
@@ -95,7 +96,7 @@ window.Dictionary = (function(){
         /* Returns whether or not the dictionary contains a
          * specified key */
         hasKey: function(key){
-            if(this[key] !== undefined) return false
+            if(this[key] !== undefined) return false;
             else return true;
         },
 
