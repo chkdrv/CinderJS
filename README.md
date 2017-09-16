@@ -1,4 +1,4 @@
-# CinderJS
+# CinderJ# CinderJS
 
 CinderJS aims to bring a lot of the comforable features we see in languages like Python and Ruby into Javascript, to make rapid iteration and ease of production the reality for Javascript development. It does so by adding new types of objects for handling data, `Lists` and `Dictionaries`.
 
@@ -53,7 +53,7 @@ somedict.each(function(key, val, index){
    		return 14;
     }
 });
-/* now somedict is {name: "Zara", age: 14, favourite_food: "ice-cream"}
+/* now somedict is {name: "Zara", age: 14, favourite_food: "ice-cream"} */
 ```
 
 `Dictionary.hasKey(key)`: returns true if the dictionary has the specified key, and false otherwise.
@@ -70,4 +70,7 @@ somedict.hasKey("likes"); // false
 var somedict = new Dictionary({name: "Zara", age: 13, favourite_food: "ice-cream"});
 somedict.delete("name");
 /* somedict now is {age: 13, favourite_food: "ice-cream"} */
-```
+```S
+
+CinderJS aims to bring a lot of the comforable features we see in languages like Python and Ruby into Javascript, to make rapid iteration and ease of production the reality for Javascript development. It does so by adding new types of objects for handling data, `Lists` and `Dictionaries`.
+
