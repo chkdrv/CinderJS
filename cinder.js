@@ -40,6 +40,12 @@ window.List = (function(){
                 var temp = callback(this[i], i);
                 if(temp !== undefined) this[i] = temp;
             }
+        },
+
+        /* Removes an element from the array at the specified
+         * index */
+        remove: function(index){
+            this.splice(index, 1);
         }
     };
 
