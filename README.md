@@ -24,6 +24,15 @@ numlist.each(function(val, index){
 });
 ```
 
+`List.remove(index)`: removes an element from the list at the specified index.
+
+``` javascript
+var somelist = new List("James", "John", "Lauren", "Katherine");
+somelist.remove(2);
+
+/* somelist now is ["James", "Lauren", "Katherine"] */
+```
+
 ## Dictionaries
 Dictionaries are like Javascript objects, but better. They contain loads of useful functions that you used to use polyfills for. Creating a new Dictionary is easy:
 
@@ -71,5 +80,4 @@ var somedict = new Dictionary({name: "Zara", age: 13, favourite_food: "ice-cream
 somedict.delete("name");
 /* somedict now is {age: 13, favourite_food: "ice-cream"} */
 ```
-
 
