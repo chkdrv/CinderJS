@@ -1,5 +1,5 @@
 /* Execute automatically when the script is loaded to add
- * all the new datatypes to the window object for easy 
+ * all the new datatypes to the window object for easy
  * use */
 
 /* Lists are easy to use arrays with helpful functions
@@ -7,7 +7,7 @@
 window.List = (function(){
     "use strict";
 
-    /* Constructor funcion, which creates a copy of the 
+    /* Constructor funcion, which creates a copy of the
      * array prototype, then injects the custom functions
      * into the new prototype */
     function List(){
@@ -16,7 +16,7 @@ window.List = (function(){
         List.injectPrototypeMethods(list);
         return list;
     }
-    
+
     /* Injects the defined prototype methods into the new
      * class */
     List.injectPrototypeMethods = function(list){
@@ -27,7 +27,7 @@ window.List = (function(){
       }
       return list;
     };
-    
+
     /* Define all the prototype functions */
     List.prototype = {
 
@@ -56,8 +56,8 @@ window.List = (function(){
  * ease of use, particulary when iterating over them */
 window.Dictionary = (function(){
     "use strict";
-    
-    /* Constructor which creates a copy of the Object 
+
+    /* Constructor which creates a copy of the Object
      * prototype and then injects the custom defined
      * functions into the new object's prototype */
     function Dictionary(base){
@@ -74,7 +74,7 @@ window.Dictionary = (function(){
 
     /* All of the dictionaries prototype functions */
     Dictionary.prototype = {
-        
+
         /* Returns all the keys in the object as an array */
         keys: function(){
             var keys = [];
@@ -87,9 +87,9 @@ window.Dictionary = (function(){
         },
 
         /* iterates over all the key: value pairs in the object
-         * and executes a callback on them, passing the key, 
-         * the value and the index to the function. If the 
-         * callback returns a value, update the value of the 
+         * and executes a callback on them, passing the key,
+         * the value and the index to the function. If the
+         * callback returns a value, update the value of the
          * pair */
         each: function(callback){
             var keys = this.keys();
@@ -109,8 +109,17 @@ window.Dictionary = (function(){
         /* Removes an item from the dictionary */
         delete: function(key){
             delete this[key];
+        },
+
+        /* returns a deep copy of the dictionary */
+        clone: function(){
+          var clone = new Dictionary();
+          this.each(function(key, value, index){
+            clone[key] = value;
+          });
+          return clone;
         }
     };
-    
+
     return Dictionary;
 })();
