@@ -83,7 +83,7 @@ somedict.delete("name");
 
 `Dictionary.clone()`: returns a deep clone of the dictionary.
 
-``` Javascript
+``` javascript
 var somedict = new Dictionary({name: "Zara", age: 13, favourite_food: "ice-cream"});
 var otherdict = somedict.clone();
 otherdict.name = "Clara";
