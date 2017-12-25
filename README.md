@@ -33,6 +33,17 @@ somelist.remove(2);
 /* somelist now is ["James", "Lauren", "Katherine"] */
 ```
 
+
+`List.clone()`: returns a new list, which is a copy of the current one
+
+``` javascript
+var somelist = new List("James", "John", "Lauren", "Katherine");
+var otherlist = somelist.clone();
+somelist[0] = "Jerry";
+
+/* otherlist still has James at index 0 */
+```
+
 ## Dictionaries
 Dictionaries are like Javascript objects, but better. They contain loads of useful functions that you used to use polyfills for. Creating a new Dictionary is easy:
 

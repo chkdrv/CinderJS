@@ -46,6 +46,11 @@ window.List = (function(){
          * index */
         remove: function(index){
             this.splice(index, 1);
+        },
+
+        /* Returns a copy of the list */
+        clone: function(){
+            return new List(this.slice(0));
         }
     };
 
