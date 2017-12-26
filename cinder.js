@@ -40,12 +40,14 @@ window.List = (function(){
                 var temp = callback(this[i], i);
                 if(temp !== undefined) this[i] = temp;
             }
+            return this;
         },
 
         /* Removes an element from the array at the specified
          * index */
         remove: function(index){
             this.splice(index, 1);
+            return this;
         },
 
         /* Returns a copy of the list */
@@ -102,6 +104,7 @@ window.Dictionary = (function(){
                 var temp = callback(keys[i], this[keys[i]], i);
                 if(temp !== undefined) this[keys[i]] = temp;
             }
+            return this;
         },
 
         /* Returns whether or not the dictionary contains a
@@ -114,6 +117,7 @@ window.Dictionary = (function(){
         /* Removes an item from the dictionary */
         delete: function(key){
             delete this[key];
+            return this;
         },
 
         /* returns a deep copy of the dictionary */
