@@ -18,7 +18,7 @@ var List = (function(){
     }
 
     /* Injects the defined prototype methods into the new
-     * class */
+     * object */
     List.injectPrototypeMethods = function (list) {
       for(var method in List.prototype){
         if(List.prototype.hasOwnProperty(method)){
@@ -28,32 +28,41 @@ var List = (function(){
       return list;
     };
 
-    /* Define all the prototype functions */
-    List.prototype = {
-
-        /* Execute a function on each of the elements in
-         * the, and if the function returns a value, set
-         * the value of the element to the returned value
-         * in place */
-        each: function (callback) {
-            for(var i=0; i<this.length; i++){
-                var temp = callback(this[i], i);
-                if(temp !== undefined) this[i] = temp;
-            }
-            return this;
-        },
-
-        /* Removes an element from the array at the specified
-         * index */
-        remove: function (index) {
-            this.splice(index, 1);
-            return this;
-        },
-
-        /* Returns a copy of the list */
-        clone: function () {
-            return new List(this.slice(0));
+    /**
+     * Iterates over each item in the list and calls a function on it, passing
+     * the value and index to the function. If the function returns a value, 
+     * this value is inserted at the index the iteration is currently on.
+     * @param {Function} callback the function to call
+     */
+    function each (callback) {
+        for(var i=0; i<this.length; i++){
+            var temp = callback(this[i], i);
+            if(temp !== undefined) this[i] = temp;
         }
+        return this;
+    }
+
+    /**
+     * Removes the element at the given index
+     * @param {Number} index the index of the element to remove 
+     */
+    function remove (index) {
+        this.splice(index, 1);
+        return this;
+    }
+
+    /**
+     * Returns a clone of the array
+     * @returns {List} a copy of the array
+     */
+    function clone () {
+        return new List(this.slice(0));
+    }
+
+    List.prototype = {
+        each: each,
+        remove: remove,
+        clone: clone
     };
 
     return List;
@@ -79,55 +88,71 @@ var Dictionary = (function(){
         return dictionary;
     }
 
-    /* All of the dictionaries prototype functions */
-    Dictionary.prototype = {
-
-        /* Returns all the keys in the object as an array */
-        keys: function () {
-            var keys = [];
-            for(var prop in this){
-                if(!Dictionary.prototype.hasOwnProperty(prop)){
-                    keys.push(prop);
-                }
+    /**
+     * Returns an array of all the keys in the object as an array
+     * @returns {Array} the keys in the object
+     */
+    function keys () {
+        var keys = [];
+        for(var prop in this){
+            if(!Dictionary.prototype.hasOwnProperty(prop)){
+                keys.push(prop);
             }
-            return keys;
-        },
-
-        /* iterates over all the key: value pairs in the object
-         * and executes a callback on them, passing the key,
-         * the value and the index to the function. If the
-         * callback returns a value, update the value of the
-         * pair */
-        each: function (callback) {
-            var keys = this.keys();
-            for(var i=0; i<keys.length; i++){
-                var temp = callback(keys[i], this[keys[i]], i);
-                if(temp !== undefined) this[keys[i]] = temp;
-            }
-            return this;
-        },
-
-        /* Returns whether or not the dictionary contains a
-         * specified key */
-        hasKey: function (key) {
-            if(this[key] !== undefined) return false;
-            else return true;
-        },
-
-        /* Removes an item from the dictionary */
-        delete: function (key) {
-            delete this[key];
-            return this;
-        },
-
-        /* returns a deep copy of the dictionary */
-        clone: function () {
-          var clone = new Dictionary();
-          this.each(function(key, value, index){
-            clone[key] = value;
-          });
-          return clone;
         }
+        return keys;
+    }
+
+    /**
+     * Iterates over all the keys in the object and calls a function on them,
+     * passing the key, value and index of the key to the function. If the
+     * function returns a value, this value replaces the existing value.
+     * @param {Function} callback the function to call 
+     */
+    function each (callback) {
+        var keys = this.keys();
+        for(var i=0; i<keys.length; i++){
+            var temp = callback(keys[i], this[keys[i]], i);
+            if(temp !== undefined) this[keys[i]] = temp;
+        }
+        return this;
+    }
+
+    /**
+     * Returns true if an object has a key, or false if it does not.
+     * @param {String} key the key to test for 
+     */
+    function hasKey (key) {
+        if(this[key] !== undefined) return false;
+        else return true;
+    }
+
+    /**
+     * Removes a key/value pair from the dictionary
+     * @param {String} key the key to remove 
+     */
+    function del (key) {
+        delete this[key];
+        return this;
+    }
+
+    /**
+     * Returns a copy of the dictionary
+     * @returns {Dictionary} the new Dictionary object
+     */
+    function clone () {
+        var clone = new Dictionary();
+        this.each(function(key, value, index){
+          clone[key] = value;
+        });
+        return clone;
+    }
+
+    Dictionary.prototype = {
+        keys: keys,
+        each: each,
+        hasKey: hasKey,
+        delete: del,
+        clone: clone
     };
 
     return Dictionary;
