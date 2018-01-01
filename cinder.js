@@ -4,7 +4,7 @@
 
 /* Lists are easy to use arrays with helpful functions
  * for working with all of the elements in the array */
-window.List = (function(){
+var List = (function(){
     "use strict";
 
     /* Constructor funcion, which creates a copy of the
@@ -19,7 +19,7 @@ window.List = (function(){
 
     /* Injects the defined prototype methods into the new
      * class */
-    List.injectPrototypeMethods = function(list){
+    List.injectPrototypeMethods = function (list) {
       for(var method in List.prototype){
         if(List.prototype.hasOwnProperty(method)){
           list[method] = List.prototype[method];
@@ -35,7 +35,7 @@ window.List = (function(){
          * the, and if the function returns a value, set
          * the value of the element to the returned value
          * in place */
-        each: function(callback){
+        each: function (callback) {
             for(var i=0; i<this.length; i++){
                 var temp = callback(this[i], i);
                 if(temp !== undefined) this[i] = temp;
@@ -45,13 +45,13 @@ window.List = (function(){
 
         /* Removes an element from the array at the specified
          * index */
-        remove: function(index){
+        remove: function (index) {
             this.splice(index, 1);
             return this;
         },
 
         /* Returns a copy of the list */
-        clone: function(){
+        clone: function () {
             return new List(this.slice(0));
         }
     };
@@ -61,13 +61,13 @@ window.List = (function(){
 
 /* Dictionaries are objects with extended prototypes for
  * ease of use, particulary when iterating over them */
-window.Dictionary = (function(){
+var Dictionary = (function(){
     "use strict";
 
     /* Constructor which creates a copy of the Object
      * prototype and then injects the custom defined
      * functions into the new object's prototype */
-    function Dictionary(base){
+    function Dictionary (base) {
         var dictionary = Object.create(Dictionary.prototype);
         if(base !== undefined){
             for(var prop in base){
@@ -83,7 +83,7 @@ window.Dictionary = (function(){
     Dictionary.prototype = {
 
         /* Returns all the keys in the object as an array */
-        keys: function(){
+        keys: function () {
             var keys = [];
             for(var prop in this){
                 if(!Dictionary.prototype.hasOwnProperty(prop)){
@@ -98,7 +98,7 @@ window.Dictionary = (function(){
          * the value and the index to the function. If the
          * callback returns a value, update the value of the
          * pair */
-        each: function(callback){
+        each: function (callback) {
             var keys = this.keys();
             for(var i=0; i<keys.length; i++){
                 var temp = callback(keys[i], this[keys[i]], i);
@@ -109,19 +109,19 @@ window.Dictionary = (function(){
 
         /* Returns whether or not the dictionary contains a
          * specified key */
-        hasKey: function(key){
+        hasKey: function (key) {
             if(this[key] !== undefined) return false;
             else return true;
         },
 
         /* Removes an item from the dictionary */
-        delete: function(key){
+        delete: function (key) {
             delete this[key];
             return this;
         },
 
         /* returns a deep copy of the dictionary */
-        clone: function(){
+        clone: function () {
           var clone = new Dictionary();
           this.each(function(key, value, index){
             clone[key] = value;
